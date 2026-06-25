@@ -1,44 +1,27 @@
-const db = require('../db/database');
+const Database = require('better-sqlite3');
+const path = require('path');
 
-function gautiPagalStudenta(studentoId) {
-  return db.prepare(
-    'SELECT * FROM dalykai WHERE studento_id = ? ORDER BY id'
-  ).all(studentoId);
-}
+const dbPath = path.join(__dirname, 'registras.db');
+const db = new Database(dbPath);
 
-function gautiPagalId(id) {
-  return db.prepare('SELECT * FROM dalykai WHERE id = ?').get(id);
-}
+db.pragma('journal_mode = WAL');
+db.pragma('foreign_keys = ON');
 
-function sukurti(studentoId, pavadinimas, kreditai) {
-  const rezultatas = db.prepare(
-    'INSERT INTO dalykai (studento_id, pavadinimas, kreditai) VALUES (?, ?, ?)'
-  ).run(studentoId, pavadinimas, kreditai);
-  return gautiPagalId(rezultatas.lastInsertRowid);
-}
+db.exec(`
+  CREATE TABLE IF NOT EXISTS studentai (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    vardas TEXT NOT NULL,
+    pavarde TEXT NOT NULL,
+    kursas INTEGER NOT NULL
+  );
 
-function atnaujinti(id, pavadinimas, kreditai) {
-  const esamas = gautiPagalId(id);
-  if (!esamas) return null;
+  CREATE TABLE IF NOT EXISTS dalykai (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    studento_id INTEGER NOT NULL,
+    pavadinimas TEXT NOT NULL,
+    kreditai INTEGER NOT NULL,
+    FOREIGN KEY (studento_id) REFERENCES studentai(id) ON DELETE CASCADE
+  );
+`);
 
-  db.prepare(
-    'UPDATE dalykai SET pavadinimas = ?, kreditai = ? WHERE id = ?'
-  ).run(pavadinimas, kreditai, id);
-
-  return gautiPagalId(id);
-}
-
-function istrinti(id) {
-  const esamas = gautiPagalId(id);
-  if (!esamas) return false;
-  db.prepare('DELETE FROM dalykai WHERE id = ?').run(id);
-  return true;
-}
-
-module.exports = {
-  gautiPagalStudenta,
-  gautiPagalId,
-  sukurti,
-  atnaujinti,
-  istrinti
-};
+module.exports = db;
