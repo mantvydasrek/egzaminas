@@ -1,254 +1,105 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studentu registras</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Studentu registras</h1>
+  </header>
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f6f8;
-  color: #222;
-  line-height: 1.5;
-}
+  <main>
+    <section class="forma-sekcija">
+      <h2 id="formos-antraste">Pridėti studentą</h2>
+      <form id="studento-forma">
+        <input type="hidden" id="studento-id">
+        <div class="lauko-eilute">
+          <label for="vardas">Vardas</label>
+          <input type="text" id="vardas" name="vardas" required>
+        </div>
+        <div class="lauko-eilute">
+          <label for="pavarde">Pavardė</label>
+          <input type="text" id="pavarde" name="pavarde" required>
+        </div>
+        <div class="lauko-eilute">
+          <label for="kursas">Kursas</label>
+          <input type="number" id="kursas" name="kursas" min="1" max="6" required>
+        </div>
+        <div class="mygtukai">
+          <button type="submit" id="issaugoti-btn">Išsaugoti</button>
+          <button type="button" id="atsaukti-btn" class="slepti">Atšaukti</button>
+        </div>
+      </form>
+      <div id="pranesimas"></div>
+    </section>
 
-header {
-  background-color: #2b3a55;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
+    <section class="filtrai-sekcija">
+      <h2>Filtrai</h2>
+      <div class="filtrai">
+        <input type="text" id="filtras-vardas" placeholder="Vardas">
+        <input type="text" id="filtras-pavarde" placeholder="Pavardė">
+        <input type="number" id="filtras-kursas" placeholder="Kursas" min="1" max="6">
+        <input type="number" id="filtras-id" placeholder="ID" min="1">
+        <button type="button" id="filtruoti-btn">Filtruoti</button>
+        <button type="button" id="isvalyti-btn">Išvalyti</button>
+      </div>
+    </section>
 
-header h1 {
-  font-size: 24px;
-}
+    <section class="sarasas-sekcija">
+      <h2>Studentų sąrašas</h2>
+      <div class="lentele-wrap">
+        <table id="studentu-lentele">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Vardas</th>
+              <th>Pavardė</th>
+              <th>Kursas</th>
+              <th>Dalykai</th>
+              <th>Veiksmai</th>
+            </tr>
+          </thead>
+          <tbody id="studentu-kunas">
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-main {
-  max-width: 1000px;
-  margin: 20px auto;
-  padding: 0 15px;
-}
+    <section id="detales-sekcija" class="slepti">
+      <h2>Studento detalės</h2>
+      <div id="studento-detales"></div>
 
-section {
-  background-color: white;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
+      <h3>Mokomieji dalykai</h3>
+      <form id="dalyko-forma">
+        <input type="hidden" id="dalyko-studento-id">
+        <input type="hidden" id="dalyko-id">
+        <div class="lauko-eilute">
+          <label for="dalyko-pavadinimas">Pavadinimas</label>
+          <input type="text" id="dalyko-pavadinimas" required>
+        </div>
+        <div class="lauko-eilute">
+          <label for="dalyko-kreditai">Kreditai</label>
+          <input type="number" id="dalyko-kreditai" min="1" max="30" required>
+        </div>
+        <div class="mygtukai">
+          <button type="submit" id="dalyko-issaugoti-btn">Pridėti dalyką</button>
+          <button type="button" id="dalyko-atsaukti-btn" class="slepti">Atšaukti</button>
+        </div>
+      </form>
 
-h2 {
-  margin-bottom: 15px;
-  color: #2b3a55;
-  font-size: 20px;
-}
+      <ul id="dalyku-sarasas"></ul>
 
-h3 {
-  margin: 15px 0 10px;
-  color: #2b3a55;
-  font-size: 16px;
-}
+      <button type="button" id="uzdaryti-detales-btn">Uždaryti detales</button>
+    </section>
+  </main>
 
-.lauko-eilute {
-  margin-bottom: 12px;
-}
+  <footer>
+    <p>Studentu registras - 2026</p>
+  </footer>
 
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  font-size: 14px;
-}
-
-input[type="text"],
-input[type="number"] {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-input:focus {
-  outline: none;
-  border-color: #2b3a55;
-}
-
-.mygtukai {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-button {
-  padding: 8px 16px;
-  background-color: #2b3a55;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-button:hover {
-  background-color: #3d5173;
-}
-
-button.pavojus {
-  background-color: #b03030;
-}
-
-button.pavojus:hover {
-  background-color: #c74040;
-}
-
-button.antrine {
-  background-color: #888;
-}
-
-button.antrine:hover {
-  background-color: #9a9a9a;
-}
-
-.filtrai {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.filtrai input {
-  flex: 1;
-  min-width: 120px;
-}
-
-.filtrai button {
-  flex: 0 0 auto;
-}
-
-.lentele-wrap {
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-  font-size: 14px;
-}
-
-th {
-  background-color: #f0f2f5;
-  font-weight: bold;
-}
-
-tr:hover {
-  background-color: #f9fafb;
-}
-
-td .veiksmai {
-  display: flex;
-  gap: 5px;
-  flex-wrap: wrap;
-}
-
-td button {
-  padding: 5px 10px;
-  font-size: 12px;
-}
-
-#pranesimas {
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 4px;
-  display: none;
-}
-
-#pranesimas.sekme {
-  background-color: #d4edda;
-  color: #155724;
-  display: block;
-}
-
-#pranesimas.klaida {
-  background-color: #f8d7da;
-  color: #721c24;
-  display: block;
-}
-
-.slepti {
-  display: none !important;
-}
-
-#dalyku-sarasas {
-  list-style: none;
-  margin-bottom: 15px;
-}
-
-#dalyku-sarasas li {
-  padding: 8px 10px;
-  background-color: #f7f8fa;
-  margin-bottom: 5px;
-  border-radius: 4px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-}
-
-#dalyku-sarasas li .dalyko-mygtukai {
-  display: flex;
-  gap: 5px;
-}
-
-#dalyku-sarasas li button {
-  padding: 4px 8px;
-  font-size: 12px;
-}
-
-#studento-detales {
-  background-color: #f7f8fa;
-  padding: 15px;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  font-size: 14px;
-}
-
-#studento-detales p {
-  margin-bottom: 5px;
-}
-
-footer {
-  text-align: center;
-  padding: 20px;
-  color: #666;
-  font-size: 13px;
-}
-
-@media (max-width: 600px) {
-  header h1 {
-    font-size: 20px;
-  }
-
-  .filtrai {
-    flex-direction: column;
-  }
-
-  .filtrai input,
-  .filtrai button {
-    width: 100%;
-  }
-
-  th, td {
-    padding: 6px;
-    font-size: 12px;
-  }
-
-  td button {
-    padding: 4px 8px;
-    font-size: 11px;
-  }
-}
+  <script src="app.js"></script>
+</body>
+</html>
