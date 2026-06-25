@@ -1,37 +1,16 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-
-const studentaiRoutes = require('./routes/studentaiRoutes');
-const dalykaiRoutes = require('./routes/dalykaiRoutes');
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.use(cors());
-app.use(express.json());
-
-app.use(express.static(path.join(__dirname, '..', 'frontend')));
-
-app.use('/api/studentai', studentaiRoutes);
-app.use('/api/dalykai', dalykaiRoutes);
-
-app.use((req, res) => {
-  res.status(404).json({ error: 'Neegzistuojantis API taskas' });
-});
-
-app.use((err, req, res, next) => {
-  console.error(err);
-  if (err.type === 'entity.parse.failed') {
-    return res.status(400).json({ error: 'Neteisingas JSON formatas' });
+{
+  "name": "studentu-registras-backend",
+  "version": "1.0.0",
+  "description": "Studentu registro REST API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node --test tests/"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
   }
-  res.status(500).json({ error: 'Vidine serverio klaida' });
-});
-
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Serveris veikia: http://localhost:${PORT}`);
-  });
 }
-
-module.exports = app;
