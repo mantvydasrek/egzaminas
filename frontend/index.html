@@ -1,0 +1,254 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  color: #222;
+  line-height: 1.5;
+}
+
+header {
+  background-color: #2b3a55;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 24px;
+}
+
+main {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+section {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+h2 {
+  margin-bottom: 15px;
+  color: #2b3a55;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 15px 0 10px;
+  color: #2b3a55;
+  font-size: 16px;
+}
+
+.lauko-eilute {
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2b3a55;
+}
+
+.mygtukai {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #2b3a55;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #3d5173;
+}
+
+button.pavojus {
+  background-color: #b03030;
+}
+
+button.pavojus:hover {
+  background-color: #c74040;
+}
+
+button.antrine {
+  background-color: #888;
+}
+
+button.antrine:hover {
+  background-color: #9a9a9a;
+}
+
+.filtrai {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filtrai input {
+  flex: 1;
+  min-width: 120px;
+}
+
+.filtrai button {
+  flex: 0 0 auto;
+}
+
+.lentele-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+th {
+  background-color: #f0f2f5;
+  font-weight: bold;
+}
+
+tr:hover {
+  background-color: #f9fafb;
+}
+
+td .veiksmai {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+td button {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+#pranesimas {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  display: none;
+}
+
+#pranesimas.sekme {
+  background-color: #d4edda;
+  color: #155724;
+  display: block;
+}
+
+#pranesimas.klaida {
+  background-color: #f8d7da;
+  color: #721c24;
+  display: block;
+}
+
+.slepti {
+  display: none !important;
+}
+
+#dalyku-sarasas {
+  list-style: none;
+  margin-bottom: 15px;
+}
+
+#dalyku-sarasas li {
+  padding: 8px 10px;
+  background-color: #f7f8fa;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+#dalyku-sarasas li .dalyko-mygtukai {
+  display: flex;
+  gap: 5px;
+}
+
+#dalyku-sarasas li button {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+#studento-detales {
+  background-color: #f7f8fa;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+#studento-detales p {
+  margin-bottom: 5px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 20px;
+  }
+
+  .filtrai {
+    flex-direction: column;
+  }
+
+  .filtrai input,
+  .filtrai button {
+    width: 100%;
+  }
+
+  th, td {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  td button {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+}
